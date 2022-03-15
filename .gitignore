@@ -1,7 +1,13 @@
+# Python codebase default gitignore (github template)
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# local irrelevant files
+.idea
+.DS_Store
 
 # C extensions
 *.so
