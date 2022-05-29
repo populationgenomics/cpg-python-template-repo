@@ -45,3 +45,4 @@ repos:
   rev: 'v0.942'
   hooks:
   - id: mypy
+    additional_dependencies: [ types-PyYAML==6.0.4, types-toml ]
