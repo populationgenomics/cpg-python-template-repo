@@ -48,4 +48,5 @@ ignore = [
     "PT018",   # Assertion should be broken down into multiple parts
     "Q000",    # Single quotes found but double quotes preferred
     "S101",    # Use of assert detected
+    "I001", # Import block is un-sorted (we use isort directly as ruff sort isn't fully supported)
 ]
