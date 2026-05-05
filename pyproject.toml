@@ -1,3 +1,11 @@
+# This template supports two use cases:
+#   1. Scripts repo — linting/formatting only, no installation required.
+#      Remove the [build-system], [tool.hatch.*], and [project] sections;
+#      keep everything from [tool.ruff] onward.
+#   2. Installable package — the default. Uses src/ layout with hatchling.
+#      Replace "package_name" with your package name in [project], [tool.hatch.*],
+#      and the src/ directory.
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

@@ -1,6 +1,6 @@
 # CPG Python Template
 
-General-purpose template for CPG Python repositories. Provides project structure, linting, type checking, testing, and CI out of the box.
+General-purpose template for CPG Python repositories. Provides project structure, linting, type checking, testing, and CI out of the box. Works as a scripts-only repo (just linting, no installation) or as an installable package — see the comments at the top of `pyproject.toml`.
 
 ## What's included
 
