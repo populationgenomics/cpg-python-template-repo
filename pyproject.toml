@@ -1,3 +1,53 @@
+# This template supports two use cases:
+#   1. Scripts repo — linting/formatting only, no installation required.
+#      Remove the [build-system], [tool.hatch.*], and [project] sections;
+#      keep everything from [tool.ruff] onward.
+#   2. Installable package — the default. Uses src/ layout with hatchling.
+#      Replace "package_name" with your package name in [project], [tool.hatch.*],
+#      and the src/ directory.
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/package_name"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
+
+[project]
+# TODO: replace with your project name
+name = "package_name"
+# TODO: replace with your project description
+description = "TODO: project description"
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.1.0"
+license = { file = "LICENSE" }
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pre-commit", "pytest", "bump-my-version"]
+test = ["pytest"]
+
+[project.urls]
+# TODO: replace with your project repository URL
+Repository = "https://github.com/populationgenomics/package_name"
+
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+
 [tool.ruff]
 line-length = 120
 
@@ -5,18 +55,19 @@ line-length = 120
 quote-style = "single"
 
 [tool.ruff.lint]
-# ignore pydocstyle, flake8-boolean-trap (FBT)
-select = ["A", "B", "C",  "E", "F", "G", "I", "N", "Q", "S", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "ERA", "EXE", "ICN", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "UP", "YTT"]
+select = ["A", "B", "C", "E", "F", "G", "I", "N", "Q", "S", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "ERA", "EXE", "ICN", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "UP", "YTT"]
 
-fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "ERA", "EXE", "FBT", "ICN", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "UP", "YTT"]
+fixable = ["ALL"]
 
 ignore = [
-    "ANN101",  # Missing type annotation for self in method
+    "ANN001",  # Missing type annotation for function argument
     "ANN201",  # Missing return type annotation for public function
-    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
+    "ANN204",  # Missing type annotation for special method __init__
+    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed
+    "COM812",  # Trailing comma prohibited
     "G004",    # Logging statement uses f-string
-    "PLW0603", # Using the global statement to update `<VAR>` is discouraged
-    "PT018",   # Assertion should be broken down into multiple parts
+    "PLR0913", # Too many arguments in function definition
+    "PLR2004", # Magic value used in comparison
     "Q000",    # Single quotes found but double quotes preferred
     "S101",    # Use of assert detected
 ]
@@ -26,15 +77,7 @@ section-order = ["future", "standard-library", "third-party", "hail", "cpg", "fi
 
 [tool.ruff.lint.isort.sections]
 hail = ["hail", "hailtop"]
+cpg = ["cpg_flow", "cpg_utils", "cpg_infra", "metamist", "analysis_runner"]
 
-# Adjust these for each repository, e.g., removing those that should be
-# local rather than CPG. Also fill in extend_skip below if there are any
-# subdirectories that should be ignored.
-cpg = [
-    "analysis_runner",
-    "cpg_infra",
-    "cpg_utils",
-    "cpg_workflows",
-    "gnomad",
-    "metamist",
-]
+[tool.mypy]
+ignore_missing_imports = true
